@@ -10,26 +10,6 @@ This project provides a Python script to submit and monitor SBATCH jobs on a rem
 
 1. **Python Environment**: Ensure you have Python 3.x installed.
 2. **SSH Access**: Set up SSH keys for passwordless access to the remote cluster (ssh-copy-id).
-3. **Create Virtual Environemnt (venv)**:
-    ```sh
-    python3 -m venv venv
-    ```
-4. **Install requirements (if there any)**:
-    ```sh
-    pip3 install -r requirements.txt
-    ```
-
-## Setup
-
-1. Clone the repository or download the script files.
-   ```sh
-   git clone <repository-url>
-   cd <repository-folder>
-   ```
-   
-2. Ensure you have SSH access set up to the remote host where the SBATCH job will be submitted and monitored.
-
-3. Create your SBATCH script file (e.g., `ollama_serve.sh`) and the optional Python script to run locally (e.g., `count_to_10.py`).
 
 ## Usage
 

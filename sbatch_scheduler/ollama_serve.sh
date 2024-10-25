@@ -9,4 +9,4 @@
 PORT_NUMBER=11434
 
 # Run the Python program
-OLLAMA_HOST=0.0.0.0:$PORT_NUMBER ~/ollama-linux-amd64 serve >> ollama_serve.log
+OLLAMA_HOST=0.0.0.0:$PORT_NUMBER ~/bin/ollama serve >> ollama_serve.log

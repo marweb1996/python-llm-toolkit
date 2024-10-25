@@ -25,8 +25,8 @@ Before you begin, ensure you have met the following requirements:
    ```
 2. **Install Ollama on NVCluster in your home directory (/home/username):**
    ```bash
-   wget https://ollama.com/download/ollama-linux-amd64
-   chmod +x ollama-linux-amd64
+   wget https://ollama.com/download/ollama-linux-amd64.tgz
+   tar -xzf ollama-linux-amd64.tgz
    ```
 3. **Run SBATCH Job Scheduler:** 
    ```bash

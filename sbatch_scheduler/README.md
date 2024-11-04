@@ -15,7 +15,7 @@ This project provides a Python script to submit and monitor SBATCH jobs on a rem
 
 ### Example Command
 ```sh
-python3 sbatch_scheduler.py --sbatch-script ollama_serve.sh -u <username> -host <username>@nvcluster.tugraz.at --keep-alive --ollama-port=<port-number> --port-forwarding
+python3 sbatch_scheduler.py --sbatch-script ollama_serve.sh -u <username> -host <username>@acluster.tugraz.at --keep-alive --ollama-port=<port-number> --port-forwarding
 ```
 
 ### Arguments

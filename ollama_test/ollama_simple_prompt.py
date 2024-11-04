@@ -15,6 +15,7 @@ client = Client(host='http://localhost:11434')
 # Pull the specified model from the server
 client.pull('llama3.1')
 
+print(f"Sending request to model...")
 # Send a chat message to the model 'llama3.1' and get a response
 response = client.chat(
     model='llama3.1',  # Specify the model name to use for the chat

@@ -1,29 +1,31 @@
 # python-llm-toolkit
+> **_IMPORTANT:_** The code in the `acluster` branch is slightly modified from the original `python-llm-toolkit` repository. It includes necessary changes in order to make the code compatible with the ACluster of TU Graz. In comparison to the NVCLuster, the usage permission is not limited to specific institutes. Yet, it uses the same software for job queueing, such that the scheduler can be reused. To learn more and signup, please see: https://acluster.tugraz.at
 
-Welcome to the `python-llm-toolkit` repository! This toolkit provides scripts and instructions to efficiently set up and run an Ollama Server on the TU Graz NVCluster, along with guidance on how to remotely connect and execute specific Python scripts. **Please note**: You need to be connected to the TU Graz VPN for access to the NVCluster.
+Welcome to the `python-llm-toolkit` repository! This toolkit provides scripts and instructions to efficiently set up and run an Ollama Server on the TU Graz ACluster, along with guidance on how to remotely connect and execute specific Python scripts. **Please note**: You need to be connected to the TU Graz VPN for access to the ACluster.
 
 ## Introduction
 
-The `python-llm-toolkit` is designed to facilitate researchers and developers in deploying and managing large language model (LLM) tasks using Ollama Server on the TU Graz NVCluster. This toolkit simplifies the process of setting up the server, running Python scripts, and ensuring efficient remote connectivity.
+The `python-llm-toolkit` is designed to facilitate researchers and developers in deploying and managing large language model (LLM) tasks using Ollama Server on the TU Graz ACluster. This toolkit simplifies the process of setting up the server, running Python scripts, and ensuring efficient remote connectivity.
 
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
 
 - **Connection to the TU Graz VPN.**
-- SSH access to the TU Graz NVCluster.
+- SSH access to the TU Graz ACluster.
 - Python 3.x installed on your local machine.
 - Basic knowledge of using SSH and Python scripting.
 
 ## Installation
 
-1. **Clone this repository to your local machine:**
+1. **Clone this repository to your local machine and checkout the `acluster` branch:**
 
    ```bash
    git clone git@github.com:marweb1996/python-llm-toolkit.git
+   checkout acluster
    cd python-llm-toolkit
    ```
-2. **Install Ollama on NVCluster in your home directory (/home/username):**
+2. **Install Ollama on ACluster in your home directory (/home/username):**
    ```bash
    wget https://ollama.com/download/ollama-linux-amd64.tgz
    tar -xzf ollama-linux-amd64.tgz
@@ -31,7 +33,7 @@ Before you begin, ensure you have met the following requirements:
 3. **Run SBATCH Job Scheduler:** 
    ```bash
    cd sbatch_scheduler
-   python3 sbatch_scheduler.py --sbatch-script ollama_serve.sh -u <username> -host <username>@nvcluster.tugraz.at --keep-alive --ollama-port=<port-number> --port-forwarding
+   python3 sbatch_scheduler.py --sbatch-script ollama_serve.sh -u <username> -host <username>@acluster.tugraz.at --keep-alive --ollama-port=<port-number> --port-forwarding
    ```
 
    > **Important:** It is crucial to choose a unique port number for the Ollama server to avoid conflicts with ports used by others on the remote host. An effective strategy is to use a number derived from something personal, such as your birthdate, to ensure uniqueness. For example, if your birthdate is 17.03.1995, you can use 1703 and add a trailing zero to make 17030, which falls within the allowable range of 0 to 65535. Avoid using system ports (0-1023), also known as "well-known ports," as these are typically reserved for system processes.

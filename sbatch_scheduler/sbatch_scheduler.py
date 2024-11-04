@@ -158,9 +158,13 @@ def execute_port_forwarding(local_port, remote_port, user, node):
                 'ssh',
                 '-o', 'TCPKeepAlive=yes',
                 '-o', 'ServerAliveInterval=30',
-                '-L', f'{local_port}:127.0.0.1:{remote_port}',
-                '-N',
-                f'{user}@{node}.tugraz.at'
+                '-L', f'{local_port}:127.0.0.1:8088',
+                f'{user}@acluster.tugraz.at',
+                'ssh',
+                '-o', 'TCPKeepAlive=yes',
+                '-o', 'ServerAliveInterval=30',
+                '-L', f'8088:127.0.0.1:{remote_port}',
+                f'{node}'
             ]
             port_forwarding_process = subprocess.Popen(cmd)
             port_forwarding_process.wait()  # Wait for process to complete

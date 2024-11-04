@@ -1,5 +1,4 @@
 #!/bin/bash
-#SBATCH --partition=isds
 #SBATCH --nodes=1
 #SBATCH --gpus-per-node=1
 #SBATCH --output=ollama_serve_batch.log

@@ -178,6 +178,19 @@ def cleanup(job_id, host):
         print("Port forwarding stopped.")
     stop_job(job_id, host)
 
+def run_script(file):
+    _, extension = os.path.splitext(file)
+    if extension == '.py':
+        # Run Python scripts
+        print(f"Running the Python script: {file}")
+        subprocess.run(['python3', file])
+    elif extension == '.sh':
+        # Run Shell scripts
+        print(f"Running the Shell script: {file}")
+        subprocess.run(['bash', file])
+    else:
+        print(f"Unsupported file extension: {extension}")
+
 def main():
     parser = argparse.ArgumentParser(description="Submit and monitor SBATCH job on a remote host, then execute a script locally when the job starts running, optionally stopping the job after completion.")
     parser.add_argument('--sbatch-script', type=str, help="The local SBATCH script file to copy and submit.")
@@ -238,7 +251,7 @@ def main():
 
                 if args.script:
                     print("Running the script: {}".format(args.script))
-                    subprocess.run(['python3', args.script])
+                    run_script(args.script)
             else:
                 print(f"Error running job ({job_id})")
                 cleanup(job_id, args.host)
@@ -253,7 +266,7 @@ def main():
                     cleanup(job_id, args.host)
             elif args.stop:
                 print("Stopping job ID: {}".format(job_id))
-                stop_job(job_id, args.host)
+                cleanup(job_id, args.host)
     except KeyboardInterrupt:
         print("Program interrupted. Cleaning up...")
         cleanup(job_id, args.host)

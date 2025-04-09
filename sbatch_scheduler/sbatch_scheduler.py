@@ -23,9 +23,15 @@ def get_remote_home_directory(user_host, port):
         print(f"An error occurred while retrieving the home directory: {e}")
         return None
 
-def replace_port_in_script(script_content, new_port_number):
-    # Use regular expression to find a line that sets the port number
-    return re.sub(r'PORT_NUMBER=\d+', f'PORT_NUMBER={new_port_number}', script_content)
+def replace_parameter_in_script(script_content, parameter_name, new_value):
+    # Create a regex pattern that will match the parameter and its current value
+    if parameter_name.startswith('--'):
+        pattern = rf'{re.escape(parameter_name)}=\S+'
+    else:
+        pattern = rf'{re.escape(parameter_name)}=\S+'
+
+    # Use regex to replace the current value with the new value
+    return re.sub(pattern, f'{parameter_name}={new_value}', script_content)
 
 def create_script_on_remote(script_content, script_name, remote_dir, host, skip_creation):
     try:
@@ -198,6 +204,9 @@ def main():
     parser.add_argument('--sbatch-script-dir', type=str, help="The directory on the remote host where the SBATCH script should be created. Defaults to the user's home directory.")
     parser.add_argument('--skip-sbatch-script-creation', action='store_true', help="Skip the creation of the SBATCH script on the remote host if it already exists.")
     parser.add_argument('--ollama-port', type=int, default=11434, help="The PORT_NUMBER to be used in the SBATCH script.")
+    parser.add_argument('--partition', type=str, default="hcc", help="The partition to be used in the SBATCH script.")
+    parser.add_argument('--nodes', type=int, default=1, help="The number of nodes to be used in the SBATCH script.")
+    parser.add_argument('--gpus-per-node', type=int, default=1, help="The number of gpus per node to be used in the SBATCH script.")
     parser.add_argument('--local-ollama-port', type=int, default=11434, help="The local port for port forwarding.")
     parser.add_argument('--script', type=str, help="The Python script to run locally when the job starts running.")
     parser.add_argument('-u', '--user', type=str, required=True, help="Specify USER to filter.")
@@ -217,7 +226,10 @@ def main():
     if args.sbatch_script:
         with open(args.sbatch_script, 'r') as file:
             original_script_content = file.read()
-        script_content = replace_port_in_script(original_script_content, args.ollama_port)
+        script_content = replace_parameter_in_script(original_script_content, 'PORT_NUMBER', args.ollama_port)
+        script_content = replace_parameter_in_script(script_content, '--partition', args.partition)
+        script_content = replace_parameter_in_script(script_content, '--nodes', args.nodes)
+        script_content = replace_parameter_in_script(script_content, '--gpus-per-node', args.gpus_per_node)
         
         script_name = os.path.basename(args.sbatch_script)
         success = create_script_on_remote(

@@ -46,8 +46,8 @@ def generate_system_prompt(role=None, task=None, constraints=None, examples=None
     
     if examples:
         examples_text = "Examples:\n" if include_headers else ""
-        for example_title, example_body in examples:
-            examples_text += f'"{example_title}\n{example_body}"\n'
+        for example in examples:
+            examples_text += '\n'.join(example)
         system_prompt += examples_text
 
     return system_prompt

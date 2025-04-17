@@ -130,7 +130,7 @@ def monitor_job(job_id, user, host):
 
     except Exception as e:
         print(f"An error occurred while monitoring the job: {e}")
-        return False
+        return False, None
 
 def stop_job(job_id, host):
     try:

@@ -28,7 +28,7 @@ def check_squeue(jobid=None, user=None, remote_host=None):
         # Check if there are at least two lines (header and one job entry)
         if len(output_lines) < 2:
             print("No jobs found")
-            return False, None, None
+            return False, None, None, None
 
         # Iterate over the lines, skip the header
         for line in output_lines[1:]:
@@ -43,10 +43,10 @@ def check_squeue(jobid=None, user=None, remote_host=None):
             # Return the values
             return True, time_value, job_user, node
 
-        return False, None, None
+        return False, None, None, None
     except Exception as e:
-        print(f"An error occurred: {e}")
-        return False, None, None
+        print(f"An error occurred while checking squeue: {e}")
+        return False, None, None, None
 
 # Example usage
 if __name__ == "__main__":

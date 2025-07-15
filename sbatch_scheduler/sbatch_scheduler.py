@@ -230,6 +230,7 @@ def main():
         script_content = replace_parameter_in_script(script_content, '--partition', args.partition)
         script_content = replace_parameter_in_script(script_content, '--nodes', args.nodes)
         script_content = replace_parameter_in_script(script_content, '--gpus-per-node', args.gpus_per_node)
+        script_content = replace_parameter_in_script(script_content, '--gpus', args.gpus_per_node)
         
         script_name = os.path.basename(args.sbatch_script)
         success = create_script_on_remote(

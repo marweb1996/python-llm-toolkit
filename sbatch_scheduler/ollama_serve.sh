@@ -2,6 +2,7 @@
 #SBATCH --partition=hcc
 #SBATCH --nodes=1
 #SBATCH --gpus-per-node=1
+#SBATCH --gpus=1
 #SBATCH --output=ollama_serve_batch.log
 #SBATCH --error=ollama_serve_batch_error.log
 
